@@ -4,9 +4,9 @@ import models.User;
 import org.junit.*;
 import java.util.List;
 import play.libs.Yaml;
-import com.avaje.ebean.*;
+import com.avaje.ebean.Ebean;
 
-import static org.fest.assertions.api.Assertions.*;
+import static org.fest.assertions.api.Assertions.assertThat;
 import static play.test.Helpers.*;
 
 public class UserTest {
