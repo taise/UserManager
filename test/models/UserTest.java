@@ -4,9 +4,9 @@ import models.User;
 import org.junit.*;
 import java.util.List;
 import play.libs.Yaml;
-import com.avaje.ebean.Ebean;
+import com.avaje.ebean.*;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.fest.assertions.api.Assertions.*;
 import static play.test.Helpers.*;
 
 public class UserTest {
@@ -18,15 +18,13 @@ public class UserTest {
         Ebean.save((List) Yaml.load("testData/users.yml"));
     }
     
-    @Test
-    public void findByEmail() {
+    @Test public void findByEmail() {
         User actual = User.findByEmail(EMAIL);
 
         assertThat(actual.email).isEqualTo(EMAIL);
     }
 
-    @Test
-    public void dontFindByInvalidEmail() {
+    @Test public void dontFindByInvalidEmail() {
         String typoEmail = EMAIL + ".";
         User actual = User.findByEmail(typoEmail);
 
