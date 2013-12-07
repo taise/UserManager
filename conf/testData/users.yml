@@ -1,0 +1,13 @@
+- &alice !!models.User
+      name:      Alice
+      email:     alice@email.com
+      password:  password
+      createdAt: 2013-01-01 00:00:00
+      updatedAt: 2013-01-01 00:00:00
+
+- &bob !!models.User
+      name:      Bob
+      email:     bob@email.com
+      password:  password
+      createdAt: 2013-01-01 00:00:00
+      updatedAt: 2013-01-01 00:00:00
