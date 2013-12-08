@@ -1,0 +1,14 @@
+<body>
+    <table>
+        <tr>
+            <th>名前</th>
+            <th>Email</th>
+        </tr>
+        @for(user <- User.find.findList()) {
+        <tr>
+            <td>@user.name</td>
+            <td>@user.email</td>
+        </tr>
+        }
+    </table>
+</body>
