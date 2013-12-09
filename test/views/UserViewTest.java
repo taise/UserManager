@@ -1,6 +1,8 @@
 package views;
 
 import org.junit.Test;
+import org.junit.Before;
+
 import play.mvc.Content;
 import java.util.List;
 import play.libs.Yaml;
@@ -11,10 +13,14 @@ import views.html.user.*;
 
 import static org.fest.assertions.Assertions.*;
 import static play.test.Helpers.*;
+import static play.data.Form.form;
 
 public class UserViewTest {
-    @Test public void IndexRender() {
+    @Before public void setUp() {
         start(fakeApplication(inMemoryDatabase()));
+    }
+
+    @Test public void indexRender() {
         Ebean.save((List) Yaml.load("testData/users.yml"));
 
         Content html = index.render();
@@ -22,5 +28,15 @@ public class UserViewTest {
 
         assertThat(htmlString).contains("<td>Alice</td>");
         assertThat(htmlString).contains("<td>alice@email.com</td>");
+    }
+
+    @Test public void newFormRender() {
+        Content html = newForm.render(form(User.class));
+        String htmlString = contentAsString(html);
+
+        assertThat(htmlString).contains("<input type=\"text\" id=\"name\"");
+        assertThat(htmlString).contains("<input type=\"text\" id=\"email\"");
+        assertThat(htmlString).contains("<input type=\"password\" id=\"password\"");
+        assertThat(htmlString).contains("<input type=\"password\" id=\"password-conf\"");
     }
 }

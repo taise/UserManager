@@ -1,0 +1,23 @@
+@(userForm: Form[User])
+
+@import helper._
+
+@main(title = "New User"){
+
+  @helper.form(action = routes.UserController.create) {
+    @inputText(
+      userForm("name"),
+      '_label -> "名前"
+    )
+    @inputText(
+      userForm("email"),
+      '_label -> "Email"
+    )
+
+    @inputPassword(
+      userForm("password"),
+      '_label -> "password"
+    )
+    <input type="password" id="password-conf">
+  }
+}

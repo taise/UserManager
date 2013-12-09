@@ -2,6 +2,7 @@ package controllers;
 
 import play.*;
 import play.mvc.*;
+import static play.data.Form.form;
 
 import java.util.List;
 import models.User;
@@ -14,6 +15,10 @@ public class UserController extends Controller {
     }
 
     public static Result newForm() {
+        return ok();
+    }
+
+    public static Result create() {
         return ok();
     }
 }
