@@ -2,6 +2,7 @@ package controllers;
 
 import play.*;
 import play.mvc.*;
+import play.data.*;
 import static play.data.Form.form;
 
 import java.util.List;
@@ -19,6 +20,9 @@ public class UserController extends Controller {
     }
 
     public static Result create() {
+        Form<User> userForm = form(User.class).bindFromRequest();
+        User user = userForm.get();
+        user.save();
         return ok();
     }
 }

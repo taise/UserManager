@@ -9,6 +9,7 @@ import static org.fest.assertions.api.Assertions.*;
 import static play.test.Helpers.*;
 
 import play.mvc.*;
+import models.User;
 
 public class UserControllerTest {
     @Before public void setUp() {
@@ -34,7 +35,19 @@ public class UserControllerTest {
     }
 
     @Test public void callCreate() {
-       fail("not yet");
+      Map<String, String> params = new HashMap<String,String>();
+      params.put("name", "Alice");
+      params.put("email", "alice@email.com");
+      params.put("password", "password");
+      int beforeCount = User.find.findRowCount();
+
+      Result result = callAction(
+          controllers.routes.ref.UserController.create(),
+          fakeRequest().withFormUrlEncodedBody(params)
+          );
+
+      assertThat(status(result)).isEqualTo(OK);
+      assertThat(User.find.findRowCount()).isEqualTo(beforeCount + 1);
     }
 
     @Test public void callShow() {
