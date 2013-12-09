@@ -23,6 +23,6 @@ public class UserController extends Controller {
         Form<User> userForm = form(User.class).bindFromRequest();
         User user = userForm.get();
         user.save();
-        return ok();
+        return redirect(routes.UserController.index());
     }
 }

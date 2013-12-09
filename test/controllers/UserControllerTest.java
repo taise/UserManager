@@ -46,7 +46,8 @@ public class UserControllerTest {
           fakeRequest().withFormUrlEncodedBody(params)
           );
 
-      assertThat(status(result)).isEqualTo(OK);
+      assertThat(status(result)).isEqualTo(SEE_OTHER);
+      assertThat(header("Location", result)).isEqualTo("/users");
       assertThat(User.find.findRowCount()).isEqualTo(beforeCount + 1);
     }
 
