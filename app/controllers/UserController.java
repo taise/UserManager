@@ -13,4 +13,7 @@ public class UserController extends Controller {
         return ok(index.render());
     }
 
+    public static Result newForm() {
+        return ok();
+    }
 }

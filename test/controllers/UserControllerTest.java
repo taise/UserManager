@@ -11,8 +11,11 @@ import static play.test.Helpers.*;
 import play.mvc.*;
 
 public class UserControllerTest {
-    @Test public void callIndex() {
+    @Before public void setUp() {
         start(fakeApplication(inMemoryDatabase()));
+    }
+
+    @Test public void callIndex() {
         Ebean.save((List) Yaml.load("testData/users.yml"));
 
         Result result = callAction(
@@ -23,7 +26,11 @@ public class UserControllerTest {
     }
 
     @Test public void callNewForm() {
-       fail("not yet");
+        Result result = callAction(
+                controllers.routes.ref.UserController.newForm()
+                );
+
+        assertThat(status(result)).isEqualTo(OK);
     }
 
     @Test public void callCreate() {
