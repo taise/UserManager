@@ -1,9 +1,11 @@
 package models;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.*;
 import play.db.ebean.*;
+import static play.db.ebean.Model.Finder;
 
 @Entity
 public class User extends Model {
