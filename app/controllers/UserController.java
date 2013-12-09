@@ -15,7 +15,7 @@ public class UserController extends Controller {
     }
 
     public static Result newForm() {
-        return ok();
+        return ok(newForm.render(form(User.class)));
     }
 
     public static Result create() {
