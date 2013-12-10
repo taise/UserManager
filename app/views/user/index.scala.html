@@ -3,11 +3,13 @@
     <tr>
         <th>名前</th>
         <th>Email</th>
+        <th>詳細リンク</th>
     </tr>
     @for(user <- User.find.findList()) {
     <tr>
         <td>@user.name</td>
         <td>@user.email</td>
+        <td><a href="/users/@user.id">link</a></td>
     </tr>
     }
 </table>

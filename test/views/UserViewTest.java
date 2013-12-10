@@ -22,12 +22,15 @@ public class UserViewTest {
 
     @Test public void indexRender() {
         Ebean.save((List) Yaml.load("testData/users.yml"));
+        List<User> users = User.find.findList();
+        User user = users.get(0);
 
         Content html = index.render();
         String htmlString = contentAsString(html);
 
-        assertThat(htmlString).contains("<td>Alice</td>");
-        assertThat(htmlString).contains("<td>alice@email.com</td>");
+        assertThat(htmlString).contains("<td>" + user.name + "</td>");
+        assertThat(htmlString).contains("<td>" + user.email+ "</td>");
+        assertThat(htmlString).contains("<a href=\"/users/" + user.id + "\">link</a></td>");
     }
 
     @Test public void newFormRender() {
