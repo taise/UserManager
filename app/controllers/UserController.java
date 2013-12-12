@@ -27,8 +27,8 @@ public class UserController extends Controller {
     }
 
     public static Result show(Long id) {
-      User user = User.find.byId(id);
-      return ok(show.render(user));
+        User user = User.find.byId(id);
+        return ok(show.render(user));
     }
 
     public static Result delete(Long id) {

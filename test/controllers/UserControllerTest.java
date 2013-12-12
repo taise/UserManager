@@ -21,7 +21,7 @@ public class UserControllerTest {
         Ebean.save((List) Yaml.load("testData/users.yml"));
 
         Result result = callAction(
-            controllers.routes.ref.UserController.index()
+                controllers.routes.ref.UserController.index()
                 );
 
         assertThat(status(result)).isEqualTo(OK);
@@ -36,41 +36,41 @@ public class UserControllerTest {
     }
 
     @Test public void callCreate() {
-      Map<String, String> params = new HashMap<String,String>();
-      params.put("name", "Alice");
-      params.put("email", "alice@email.com");
-      params.put("password", "password");
-      int beforeCount = User.find.findRowCount();
+        Map<String, String> params = new HashMap<String,String>();
+        params.put("name", "Alice");
+        params.put("email", "alice@email.com");
+        params.put("password", "password");
+        int beforeCount = User.find.findRowCount();
 
-      Result result = callAction(
-          controllers.routes.ref.UserController.create(),
-          fakeRequest().withFormUrlEncodedBody(params)
-          );
+        Result result = callAction(
+                controllers.routes.ref.UserController.create(),
+                fakeRequest().withFormUrlEncodedBody(params)
+                );
 
-      assertThat(status(result)).isEqualTo(SEE_OTHER);
-      assertThat(header("Location", result)).isEqualTo("/users");
-      assertThat(User.find.findRowCount()).isEqualTo(beforeCount + 1);
+        assertThat(status(result)).isEqualTo(SEE_OTHER);
+        assertThat(header("Location", result)).isEqualTo("/users");
+        assertThat(User.find.findRowCount()).isEqualTo(beforeCount + 1);
     }
 
     @Test public void callShow() {
-      User user = UserHelper.getFirstUser();
+        User user = UserHelper.getFirstUser();
 
-      Result result = callAction(
-          controllers.routes.ref.UserController.show(user.id)
-          );
+        Result result = callAction(
+                controllers.routes.ref.UserController.show(user.id)
+                );
 
         assertThat(status(result)).isEqualTo(OK);
     }
 
     @Test public void callDelete() {
-      User user = UserHelper.getFirstUser();
+        User user = UserHelper.getFirstUser();
 
-      Result result = callAction(
-          controllers.routes.ref.UserController.delete(user.id)
-          );
+        Result result = callAction(
+                controllers.routes.ref.UserController.delete(user.id)
+                );
 
-      assertThat(User.find.byId(user.id)).isNull();
-      assertThat(status(result)).isEqualTo(SEE_OTHER);
-      assertThat(header("Location", result)).isEqualTo("/users");
+        assertThat(User.find.byId(user.id)).isNull();
+        assertThat(status(result)).isEqualTo(SEE_OTHER);
+        assertThat(header("Location", result)).isEqualTo("/users");
     }
 }
