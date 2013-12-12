@@ -10,6 +10,7 @@ import static play.test.Helpers.*;
 
 import play.mvc.*;
 import models.User;
+import helper.UserHelper;
 
 public class UserControllerTest {
     @Before public void setUp() {
@@ -52,9 +53,7 @@ public class UserControllerTest {
     }
 
     @Test public void callShow() {
-      Ebean.save((List) Yaml.load("testData/users.yml"));
-      List<User> users = User.find.findList();
-      User user = users.get(0);
+      User user = UserHelper.getFirstUser();
 
       Result result = callAction(
           controllers.routes.ref.UserController.show(user.id)

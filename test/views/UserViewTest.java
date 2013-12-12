@@ -10,6 +10,7 @@ import com.avaje.ebean.*;
 
 import models.User;
 import views.html.user.*;
+import helper.UserHelper;
 
 import static org.fest.assertions.Assertions.*;
 import static play.test.Helpers.*;
@@ -21,16 +22,14 @@ public class UserViewTest {
     }
 
     @Test public void indexRender() {
-        Ebean.save((List) Yaml.load("testData/users.yml"));
-        List<User> users = User.find.findList();
-        User user = users.get(0);
+      User user = UserHelper.getFirstUser();
 
-        Content html = index.render();
-        String htmlString = contentAsString(html);
+      Content html = index.render();
+      String htmlString = contentAsString(html);
 
-        assertThat(htmlString).contains("<td>" + user.name + "</td>");
-        assertThat(htmlString).contains("<td>" + user.email+ "</td>");
-        assertThat(htmlString).contains("<a href=\"/users/" + user.id + "\">link</a></td>");
+      assertThat(htmlString).contains("<td>" + user.name + "</td>");
+      assertThat(htmlString).contains("<td>" + user.email+ "</td>");
+      assertThat(htmlString).contains("<a href=\"/users/" + user.id + "\">link</a></td>");
     }
 
     @Test public void newFormRender() {
@@ -44,9 +43,8 @@ public class UserViewTest {
     }
 
     @Test public void showRender() {
-      Ebean.save((List) Yaml.load("testData/users.yml"));
-      List<User> users = User.find.findList();
-      User user = users.get(0);
+      User user = UserHelper.getFirstUser();
+
       Content html = show.render(user);
       String htmlString = contentAsString(html);
 
