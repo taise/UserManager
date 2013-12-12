@@ -30,4 +30,9 @@ public class UserController extends Controller {
       User user = User.find.byId(id);
       return ok(show.render(user));
     }
+
+    public static Result delete(Long id) {
+        User.find.byId(id).delete();
+        return redirect(routes.UserController.index());
+    }
 }

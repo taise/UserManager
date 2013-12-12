@@ -8,6 +8,7 @@ GET     /users                      controllers.UserController.index()
 GET     /users/new                  controllers.UserController.newForm()
 POST    /users                      controllers.UserController.create()
 GET     /users/:id                  controllers.UserController.show(id: Long)
+POST    /users/:id                  controllers.UserController.delete(id: Long)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

@@ -63,6 +63,14 @@ public class UserControllerTest {
     }
 
     @Test public void callDelete() {
-       fail("not yet");
+      User user = UserHelper.getFirstUser();
+
+      Result result = callAction(
+          controllers.routes.ref.UserController.delete(user.id)
+          );
+
+      assertThat(User.find.byId(user.id)).isNull();
+      assertThat(status(result)).isEqualTo(SEE_OTHER);
+      assertThat(header("Location", result)).isEqualTo("/users");
     }
 }
