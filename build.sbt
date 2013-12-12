@@ -1,4 +1,4 @@
-name := "playTest"
+name := "UserManager"
 
 version := "1.0-SNAPSHOT"
 
