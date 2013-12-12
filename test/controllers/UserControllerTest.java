@@ -52,7 +52,15 @@ public class UserControllerTest {
     }
 
     @Test public void callShow() {
-       fail("not yet");
+      Ebean.save((List) Yaml.load("testData/users.yml"));
+      List<User> users = User.find.findList();
+      User user = users.get(0);
+
+      Result result = callAction(
+          controllers.routes.ref.UserController.show(user.id)
+          );
+
+        assertThat(status(result)).isEqualTo(OK);
     }
 
     @Test public void callDelete() {

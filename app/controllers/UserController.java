@@ -25,4 +25,9 @@ public class UserController extends Controller {
         user.save();
         return redirect(routes.UserController.index());
     }
+
+    public static Result show(Long id) {
+      User user = User.find.byId(id);
+      return ok(show.render(user));
+    }
 }

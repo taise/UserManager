@@ -42,4 +42,15 @@ public class UserViewTest {
         assertThat(htmlString).contains("<input type=\"password\" id=\"password\"");
         assertThat(htmlString).contains("<input type=\"password\" id=\"password-conf\"");
     }
+
+    @Test public void showRender() {
+      Ebean.save((List) Yaml.load("testData/users.yml"));
+      List<User> users = User.find.findList();
+      User user = users.get(0);
+      Content html = show.render(user);
+      String htmlString = contentAsString(html);
+
+      assertThat(htmlString).contains("<td>" + user.name + "</td>");
+      assertThat(htmlString).contains("<td>" + user.email+ "</td>");
+    }
 }
