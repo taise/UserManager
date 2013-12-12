@@ -24,8 +24,8 @@ public class UserViewTest {
     @Test public void indexRender() {
       User user = UserHelper.getFirstUser();
 
-      Content html = index.render();
-      String htmlString = contentAsString(html);
+      String htmlString
+        = contentAsString(index.render());
 
       assertThat(htmlString).contains("<td>" + user.name + "</td>");
       assertThat(htmlString).contains("<td>" + user.email+ "</td>");
@@ -33,8 +33,8 @@ public class UserViewTest {
     }
 
     @Test public void newFormRender() {
-        Content html = newForm.render(form(User.class));
-        String htmlString = contentAsString(html);
+      String htmlString
+        = contentAsString(newForm.render(form(User.class)));
 
         assertThat(htmlString).contains("<input type=\"text\" id=\"name\"");
         assertThat(htmlString).contains("<input type=\"text\" id=\"email\"");
@@ -45,8 +45,8 @@ public class UserViewTest {
     @Test public void showRender() {
       User user = UserHelper.getFirstUser();
 
-      Content html = show.render(user);
-      String htmlString = contentAsString(html);
+      String htmlString
+        = contentAsString(show.render(user));
 
       assertThat(htmlString).contains("<td>" + user.name + "</td>");
       assertThat(htmlString).contains("<td>" + user.email+ "</td>");
