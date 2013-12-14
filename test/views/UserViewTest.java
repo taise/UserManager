@@ -3,11 +3,6 @@ package views;
 import org.junit.Test;
 import org.junit.Before;
 
-import play.mvc.Content;
-import java.util.List;
-import play.libs.Yaml;
-import com.avaje.ebean.*;
-
 import models.User;
 import views.html.user.*;
 import helper.UserHelper;
