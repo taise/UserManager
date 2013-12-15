@@ -45,5 +45,7 @@ public class UserViewTest {
 
       assertThat(htmlString).contains("<td>" + user.name + "</td>");
       assertThat(htmlString).contains("<td>" + user.email+ "</td>");
+      assertThat(htmlString).contains("<form action=\"/users/" + user.id + "\" method=\"POST\" ");
+      assertThat(htmlString).contains("<input type=\"submit\" value=\"削除\"");
     }
 }

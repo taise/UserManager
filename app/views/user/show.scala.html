@@ -11,4 +11,8 @@
       <td>@user.email</td>
     </tr>
   </table>
+
+  @helper.form(action = routes.UserController.delete(user.id)) {
+    <input type="submit" value="削除">
+  }
 }
