@@ -29,8 +29,9 @@ public class ApiControllerTest {
         String content = contentAsString(result);
         assertThat(status(result)).isEqualTo(OK);
         assertThat(contentType(result)).isEqualTo("application/json");
-        assertThat(content).contains("[{\"id\":1")
-                           .contains("},{\"id\":2");
+        assertThat(content).startsWith("[{\"id\":1")
+                           .contains("},{\"id\":2")
+                           .endsWith("}]");
     }
 
     @Test public void callShowUser() {
@@ -42,6 +43,7 @@ public class ApiControllerTest {
         String content = contentAsString(result);
         assertThat(status(result)).isEqualTo(OK);
         assertThat(contentType(result)).isEqualTo("application/json");
-        assertThat(content).contains("{\"id\":1");
+        assertThat(content).startsWith("{\"id\":1")
+                           .endsWith("}");
     }
 }
