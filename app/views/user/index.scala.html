@@ -9,7 +9,7 @@
     <tr>
         <td>@user.name</td>
         <td>@user.email</td>
-        <td><a href="/users/@user.id">link</a></td>
+        <td><a href="@routes.UserController.show(user.id)">link</a></td>
     </tr>
     }
 </table>
