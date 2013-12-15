@@ -16,4 +16,11 @@ public class ApiController extends Controller {
         JsonNode json = Json.toJson(users);
         return ok(json);
     }
+
+    @BodyParser.Of(play.mvc.BodyParser.Json.class)
+    public static Result showUser(Long id) {
+        User user = User.find.byId(id);
+        JsonNode json = Json.toJson(user);
+        return ok(json);
+    }
 }

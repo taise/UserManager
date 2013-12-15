@@ -12,6 +12,7 @@ import static play.test.Helpers.*;
 
 import play.mvc.*;
 import models.User;
+import helper.UserHelper;
 
 public class ApiControllerTest {
     @Before public void setUp() {
@@ -21,7 +22,6 @@ public class ApiControllerTest {
     @BodyParser.Of(BodyParser.Json.class)
     @Test public void callAllUser() {
         Ebean.save((List) Yaml.load("testData/users.yml"));
-
         Result result = callAction(
                 controllers.routes.ref.ApiController.allUsers()
                 );
@@ -29,7 +29,19 @@ public class ApiControllerTest {
         String content = contentAsString(result);
         assertThat(status(result)).isEqualTo(OK);
         assertThat(contentType(result)).isEqualTo("application/json");
-        assertThat(content).contains("[{\"id\":1");
-        assertThat(content).contains("},{\"id\":2");
+        assertThat(content).contains("[{\"id\":1")
+                           .contains("},{\"id\":2");
+    }
+
+    @Test public void callShowUser() {
+        User user = UserHelper.getFirstUser();
+        Result result = callAction(
+                controllers.routes.ref.ApiController.showUser(user.id)
+                );
+
+        String content = contentAsString(result);
+        assertThat(status(result)).isEqualTo(OK);
+        assertThat(contentType(result)).isEqualTo("application/json");
+        assertThat(content).contains("{\"id\":1");
     }
 }

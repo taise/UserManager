@@ -12,6 +12,7 @@ POST    /users/:id                  controllers.UserController.delete(id: Long)
 
 # APIs
 GET     /api/users                  controllers.ApiController.allUsers()
+GET     /api/users/:id              controllers.ApiController.showUser(id: Long)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
