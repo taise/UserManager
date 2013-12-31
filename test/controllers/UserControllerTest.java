@@ -18,59 +18,70 @@ public class UserControllerTest {
     }
 
     @Test public void callIndex() {
-        Ebean.save((List) Yaml.load("testData/users.yml"));
-
-        Result result = callAction(
-                controllers.routes.ref.UserController.index()
-                );
+        Result result = route(fakeRequest(GET, "/users"));
 
         assertThat(status(result)).isEqualTo(OK);
+        assertThat(contentType(result)).isEqualTo("text/html");
+        assertThat(charset(result)).isEqualTo("utf-8");
     }
 
     @Test public void callNewForm() {
-        Result result = callAction(
-                controllers.routes.ref.UserController.newForm()
-                );
+        Result result = route(fakeRequest(GET, "/users/new"));
 
         assertThat(status(result)).isEqualTo(OK);
+        assertThat(contentType(result)).isEqualTo("text/html");
+        assertThat(charset(result)).isEqualTo("utf-8");
     }
 
-    @Test public void callCreate() {
+    @Test public void callCreateOK() {
         Map<String, String> params = new HashMap<String,String>();
         params.put("name", "Alice");
         params.put("email", "alice@email.com");
         params.put("password", "password");
         int beforeCount = User.find.findRowCount();
 
-        Result result = callAction(
-                controllers.routes.ref.UserController.create(),
-                fakeRequest().withFormUrlEncodedBody(params)
+        Result result = route(
+                fakeRequest(POST, "/users")
+                .withFormUrlEncodedBody(params)
                 );
 
         assertThat(status(result)).isEqualTo(SEE_OTHER);
-        assertThat(header("Location", result)).isEqualTo("/users");
+        assertThat(redirectLocation(result)).isEqualTo("/users");
         assertThat(User.find.findRowCount()).isEqualTo(beforeCount + 1);
+    }
+
+    @Test public void callCreateBadRequest() {
+        Map<String, String> params = new HashMap<String,String>();
+        params.put("email", "alice@email.com");
+        params.put("password", "password");
+        int beforeCount = User.find.findRowCount();
+
+        Result result = route(
+                fakeRequest(POST, "/users")
+                .withFormUrlEncodedBody(params)
+                );
+
+        assertThat(status(result)).isEqualTo(BAD_REQUEST);
+        assertThat(User.find.findRowCount()).isEqualTo(beforeCount);
     }
 
     @Test public void callShow() {
         User user = UserHelper.getFirstUser();
 
-        Result result = callAction(
-                controllers.routes.ref.UserController.show(user.id)
-                );
+        Result result = route(fakeRequest(GET, "/users/" + user.id));
 
         assertThat(status(result)).isEqualTo(OK);
+        assertThat(contentType(result)).isEqualTo("text/html");
+        assertThat(charset(result)).isEqualTo("utf-8");
     }
 
     @Test public void callDelete() {
         User user = UserHelper.getFirstUser();
 
-        Result result = callAction(
-                controllers.routes.ref.UserController.delete(user.id)
-                );
+        Result result = route(fakeRequest(POST, "/users/delete/" + user.id));
 
         assertThat(User.find.byId(user.id)).isNull();
         assertThat(status(result)).isEqualTo(SEE_OTHER);
-        assertThat(header("Location", result)).isEqualTo("/users");
+        assertThat(redirectLocation(result)).isEqualTo("/users");
     }
 }
