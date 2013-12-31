@@ -21,6 +21,9 @@ public class UserController extends Controller {
 
     public static Result create() {
         Form<User> userForm = form(User.class).bindFromRequest();
+        if(userForm.hasErrors()) {
+            return badRequest(newForm.render(userForm));
+        }
         User user = userForm.get();
         user.save();
         return redirect(routes.UserController.index());

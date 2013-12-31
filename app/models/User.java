@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
+import play.data.validation.Constraints.*;
 import play.db.ebean.*;
 import static play.db.ebean.Model.Finder;
 
@@ -12,6 +13,8 @@ public class User extends Model {
 
     @Id
     public Long id;
+
+    @Required
     public String name;
 
     @Column(unique=true)
